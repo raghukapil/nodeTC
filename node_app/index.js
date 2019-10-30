@@ -3,6 +3,7 @@
 const cluster = require('cluster');
 const express = require('express');
 const userRouter = require('./routers/userRouter');
+const bodyParser = require('body-parser');
 
 const NO_CPU = 3;
 
@@ -23,7 +24,7 @@ if (cluster.isMaster) {
     app.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`);
     });
-
+    app.use(bodyParser.json());
     app.use('/user', userRouter);
 
 }
